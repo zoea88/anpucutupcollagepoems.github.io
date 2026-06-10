@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>安溥歌词拼贴诗</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="studio" aria-label="安溥歌词拼贴诗工作台">
+        <aside class="library-panel">
+          <div class="library-hero-card">
+            <div class="brand-block">
+              <p class="eyebrow">Collage Poetry</p>
+              <h1>安溥歌词拼贴诗</h1>
+            </div>
+          </div>
+
+          <div class="library-stack-card">
+            <div class="library-paper-area">
+              <p class="library-hint">拖拽或双击即可将字条移入画布内，单击剪刀可二次裁剪字条</p>
+              <div id="fragmentLibrary" class="fragment-library" aria-label="歌词素材库"></div>
+            </div>
+
+            <div class="library-envelope-controls">
+              <div class="palette-block" aria-label="纸条调色盘">
+                <div class="palette-copy">
+                  <span>纸条染色</span>
+                  <small>Morandi Washi</small>
+                  <em>单击字条即可更改颜色</em>
+                </div>
+                <div class="color-wheel" id="morandiWheel" role="slider" aria-label="莫兰迪色轮" aria-valuemin="0" aria-valuemax="360" aria-valuenow="38" tabindex="0">
+                  <span id="wheelHandle" class="wheel-handle"></span>
+                </div>
+                <div class="swatches" aria-label="莫兰迪色板">
+                  <button type="button" class="swatch" data-color="#ffffff" style="--swatch:#ffffff" aria-label="纯白"></button>
+                  <button type="button" class="swatch" data-color="#f7f2e8" style="--swatch:#f7f2e8" aria-label="和纸白"></button>
+                  <button type="button" class="swatch" data-color="#d6b8b3" style="--swatch:#d6b8b3" aria-label="灰玫瑰"></button>
+                  <button type="button" class="swatch" data-color="#b8c0ad" style="--swatch:#b8c0ad" aria-label="鼠尾草"></button>
+                  <button type="button" class="swatch" data-color="#d8c99e" style="--swatch:#d8c99e" aria-label="古书页"></button>
+                </div>
+              </div>
+
+              <div class="toolbar">
+                <button id="shuffleSet" class="text-button" type="button">换一组</button>
+                <div class="song-search" role="search" aria-label="按歌名搜索">
+                  <input id="songSearchInput" type="search" placeholder="输入歌名" autocomplete="off" />
+                  <button id="songSearchButton" class="text-button" type="button">按歌名搜索</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="canvas-zone">
+          <div class="canvas-frame">
+            <div id="poetryCanvas" class="poetry-canvas" aria-label="拼贴画布">
+              <p class="canvas-credit">文本均来源于安溥歌词</p>
+            </div>
+          </div>
+          <div class="canvas-backgrounds" aria-label="画布背景">
+            <button type="button" data-bg="lined" class="preset active">横线纸</button>
+            <button type="button" data-bg="white" class="preset">冷白</button>
+            <button type="button" data-bg="black" class="preset">黑纸</button>
+            <label class="upload-button">
+              <input id="bgUpload" type="file" accept="image/*" />
+              上传背景
+            </label>
+          </div>
+          <div class="canvas-actions">
+            <button id="clearCanvas" class="icon-button" type="button" title="清空画布" aria-label="清空画布">×</button>
+            <button id="exportCard" class="primary-button" type="button">生成卡片</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="side-actions" aria-label="页面帮助">
+      <button class="side-action" type="button" data-info="usage">使用说明</button>
+      <button class="side-action" type="button" data-info="songs">曲库列表</button>
+    </div>
+
+    <div id="exportOverlay" class="export-overlay" aria-hidden="true">
+      <div class="export-sheet">
+        <button id="closeOverlay" class="icon-button close" type="button" aria-label="关闭">×</button>
+        <img id="exportPreview" alt="生成的拼贴诗卡片" />
+        <p>手机长按保存，电脑右键保存图片</p>
+      </div>
+    </div>
+
+    <div id="infoOverlay" class="info-overlay" aria-hidden="true">
+      <section class="info-note" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+        <button id="closeInfoOverlay" class="icon-button info-close" type="button" aria-label="关闭">×</button>
+        <h2 id="infoTitle"></h2>
+        <div id="infoBody" class="info-body"></div>
+      </section>
+    </div>
+
+    <script src="./lyric-data.js"></script>
+    <script src="./background-data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
