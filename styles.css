@@ -248,6 +248,32 @@ button {
   clip-path: none;
 }
 
+.library-paper-area::before,
+.library-paper-area::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.library-paper-area::before {
+  right: 4px;
+  top: 62px;
+  width: 5px;
+  height: 64px;
+  z-index: 3;
+  background: rgba(82, 89, 91, 0.34);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.library-paper-area::after {
+  right: 5px;
+  top: 52px;
+  bottom: 28px;
+  width: 2px;
+  z-index: 2;
+  background: rgba(82, 89, 91, 0.16);
+}
+
 .library-envelope-controls {
   position: relative;
   z-index: 2;
@@ -486,12 +512,29 @@ h1 {
 }
 
 .fragment-library {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 13px;
   max-height: 286px;
-  padding: 6px 9px 18px 2px;
-  overflow: auto;
+  padding: 6px 20px 22px 2px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-color: rgba(71, 80, 84, 0.38) rgba(71, 80, 84, 0.1);
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fragment-library::after {
+  content: "";
+  position: sticky;
+  bottom: -22px;
+  flex: 0 0 34px;
+  height: 34px;
+  margin-top: -34px;
+  z-index: 2;
+  background: linear-gradient(rgba(247, 249, 247, 0), rgba(247, 249, 247, 0.9));
+  pointer-events: none;
 }
 
 .library-hint {
@@ -499,11 +542,16 @@ h1 {
 }
 
 .fragment-library::-webkit-scrollbar {
-  width: 8px;
+  width: 9px;
+}
+
+.fragment-library::-webkit-scrollbar-track {
+  background: rgba(71, 80, 84, 0.1);
 }
 
 .fragment-library::-webkit-scrollbar-thumb {
-  background: rgba(71, 80, 84, 0.2);
+  background: rgba(71, 80, 84, 0.38);
+  border: 2px solid rgba(255, 255, 252, 0.52);
 }
 
 .strip {
