@@ -637,6 +637,14 @@ h1 {
   text-shadow: 0 0 0.2px currentColor;
 }
 
+.canvas-strip {
+  max-width: none;
+}
+
+.canvas-strip .strip-text {
+  white-space: nowrap;
+}
+
 .scissor {
   position: relative;
   z-index: 1;

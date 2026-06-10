@@ -499,12 +499,13 @@ function getStripExportMetrics(strip) {
   const textEl = strip.querySelector(".strip-text");
   const stripStyle = getComputedStyle(strip);
   const textStyle = getComputedStyle(textEl);
+  const textRect = textEl.getBoundingClientRect();
   return {
     width: strip.offsetWidth,
     height: strip.offsetHeight,
     textX: textEl.offsetLeft,
     textY: textEl.offsetTop,
-    textWidth: textEl.offsetWidth,
+    textWidth: Math.ceil(textRect.width),
     lineHeight: Number.parseFloat(textStyle.lineHeight) || 20,
     font: textStyle.font || "15px Songti SC, STSong, Georgia, serif",
     color: stripStyle.color || "#3d342c"
@@ -513,6 +514,7 @@ function getStripExportMetrics(strip) {
 
 async function exportCanvas() {
   try {
+    if (document.fonts?.ready) await document.fonts.ready;
     const rect = canvas.getBoundingClientRect();
     const scale = 3;
     const out = document.createElement("canvas");
@@ -538,7 +540,9 @@ async function exportCanvas() {
       const stripScale = Number(strip.dataset.scale);
       const text = strip.dataset.text;
       const metrics = getStripExportMetrics(strip);
-      const width = metrics.width;
+      ctx.font = metrics.font;
+      const singleLineWidth = Math.ceil(ctx.measureText(text).width + metrics.textX * 2 + 8);
+      const width = Math.max(metrics.width, singleLineWidth);
       const height = metrics.height;
       ctx.save();
       ctx.translate(x + width / 2, y + height / 2);
@@ -557,14 +561,7 @@ async function exportCanvas() {
       ctx.fillStyle = metrics.color;
       ctx.font = metrics.font;
       ctx.textBaseline = "top";
-      drawWrappedText(
-        ctx,
-        text,
-        -width / 2 + metrics.textX,
-        -height / 2 + metrics.textY,
-        metrics.textWidth,
-        metrics.lineHeight
-      );
+      ctx.fillText(text, -width / 2 + metrics.textX, -height / 2 + metrics.textY);
       ctx.restore();
     });
 
